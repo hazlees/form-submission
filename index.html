@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: center;
+            justify-content: center;
+            align-items: center;
+            margin: 16px;
+            background-color: var(--background-color, #f7f7f7);
+            background-size: cover;
+        }
+        main {
+            flex: 1 0 auto;
+            width: 100%;
+        }
+        .container {
+            background-color: var(--container-background-color, #ffffff);
+            border-radius: 16px;
+            padding: 16px;
+            width: 100%;
+            max-width: 600px;
+            min-width: 343px;
+            min-height: 400px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+        .page-title {
+            margin: 16px;
+            font-family: 'Google Sans', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            font-weight: 800;
+        }
+        .btn-custom {
+            background-color: #C47A62;
+            border-radius: 50px;
+            font-family: 'Google Sans', sans-serif;
+            font-size: 16px;
+            color: #ffffff;
+            display: block;
+            height: 48px;
+            min-width: 96px;
+            text-align: center;
+            text-transform: capitalize;
+        }
+        .btn-custom:hover {
+            background-color: #633F3B;
+        }
+        .input-field label {
+            font-family: 'roboto', sans-serif;
+            color: var(--label-color, #2b2b2b);
+        }
+        .input-field input[type=email]:focus + label,
+        .input-field textarea:focus + label {
+            color: #C47A62 !important;
+        }
+        .input-field input[type=email]:focus:not([readonly]),
+        .input-field textarea:focus:not([readonly]) {
+            border-bottom: 1px solid #C47A62;
+            box-shadow: 0 1px 0 0 #C47A62;
+        }
+        .input-field input[type=email]:enabled:not([readonly]),
+        .input-field textarea:enabled:not([readonly]) {
+            border-bottom: 1px solid #C47A62;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 16px;
+            }
+        }
+        @media (prefers-color-scheme: dark) {
+            body {
+                --background-color: #1e1e1e;
+                --container-background-color: #2b2b2b;
+                --label-color: #ffffff;
+                color: #F7F7F7;
+            }
+            .container {
+            border-width: 2px;
+            border-color: #373737;
+            box-shadow: 0 0px 32px rgba(0, 0, 0, 1);
+
+            }
+            .btn-custom {
+                background-color: #C47A62;
+                color: #ffffff;
+            }
+            .btn-custom:hover {
+                background-color: #633F3B;
+            }
+            .input-field input[type=email],
+            .input-field textarea {
+                color: #F7F7F7;
+            }
+            .input-field input[type=email]:focus:not([readonly]),
+            .input-field textarea:focus:not([readonly]) {
+                border-bottom: 1px solid #C47A62;
+                box-shadow: 0 1px 0 0 #C47A62;
+            }
+            .input-field input[type=email]:enabled:not([readonly]),
+            .input-field textarea:enabled:not([readonly]) {
+                border-bottom: 1px solid #C47A62;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h1 class="page-title">Get in touch</h1>
+            <div class="row">
+                <form class="col s12" id="contactForm">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="email" type="email" class="validate" required>
+                            <label for="email">Email</label>
+                            <span class="helper-text" data-error="Please enter a valid email address" data-success=""></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <textarea id="message" class="materialize-textarea" required></textarea>
+                            <label for="message">Message</label>
+                        </div>
+                    </div>
+                    <button class="btn waves-effect waves-light btn-custom" type="submit" name="action">Send
+                        <i class="material-icons right"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            fetch('https://formsubmit.co/YOUR_EMAIL_ADDRESS', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    message: message
+                })
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.success) {
+                      M.toast({html: 'Message sent successfully!'});
+                  } else {
+                      M.toast({html: 'Failed to send message.'});
+                  }
+              })
+              .catch(error => {
+                  M.toast({html: 'Error: ' + error.message});
+              });
+        });
+    </script>
+</body>
+</html>
