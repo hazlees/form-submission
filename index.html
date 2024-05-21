@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Us</title>
-    <meta https-equiv="Strict-Transport-Security" content="max-age=31536000">
+    <meta http-equiv="Strict-Transport-Security" content="max-age=31536000">
     <!-- Materialize CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
     <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@700;800&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
@@ -17,32 +19,59 @@
             flex-direction: center;
             justify-content: center;
             align-items: center;
-            margin: 16px;
             background-color: var(--background-color, #f7f7f7);
             background-size: cover;
         }
+
+        .body {
+            margin: 16px;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
         main {
             flex: 1 0 auto;
             width: 100%;
         }
+
         .container {
-            /*background-color: var(--container-background-color, #ffffff);*/
             border-radius: 16px;
-            padding: 16px;
+            padding: 24px;
             width: 100%;
             max-width: 800px;
             min-width: 343px;
             min-height: 400px;
-            /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);*/
         }
+
+        .col .row {
+            margin-bottom: 4px;
+        }
+
+        .material-icons {
+            color: #2b2b2b !important;
+        }
+
+        label.active {
+            color: #C47a62 !important;
+        }
+
+        textarea:focus,
+        input:focus,
+        input.valid[type=text]:not(.browser-default),
+        input.valid[type=email]:not(.browser-default) {
+            border-bottom: 1px solid #C47a62 !important;
+            box-shadow: 0 1px 0 0 #C47a62 !important;
+        }
+
         .page-title {
             margin: 16px;
             font-family: 'Google Sans', sans-serif;
-            font-size: 2.5rem;
-            text-align: center;
+            font-size: 4rem;
+            text-align: left;
             font-weight: 800;
         }
-        .btn-custom {
+
+        .btn {
             background-color: #C47A62;
             border-radius: 50px;
             font-family: 'Google Sans', sans-serif;
@@ -54,31 +83,17 @@
             text-align: center;
             text-transform: capitalize;
         }
-        .btn-custom:hover {
+
+        .btn:hover {
             background-color: #633F3B;
         }
-        .input-field label {
-            font-family: 'roboto', sans-serif;
-            color: var(--label-color, #2b2b2b);
-        }
-        .input-field input[type=email]:focus + label,
-        .input-field textarea:focus + label {
-            color: #C47A62 !important;
-        }
-        .input-field input[type=email]:focus:not([readonly]),
-        .input-field textarea:focus:not([readonly]) {
-            border-bottom: 1px solid #C47A62;
-            box-shadow: 0 1px 0 0 #C47A62;
-        }
-        .input-field input[type=email]:enabled:not([readonly]),
-        .input-field textarea:enabled:not([readonly]) {
-            border-bottom: 1px solid #C47A62;
-        }
-        @media (max-width: 600px) {
+
+        @media (max-width: 800px) {
             .container {
                 padding: 16px;
             }
         }
+
         @media (prefers-color-scheme: dark) {
             body {
                 --background-color: #1e1e1e;
@@ -86,43 +101,48 @@
                 --label-color: #ffffff;
                 color: #F7F7F7;
             }
-            /*
-            .container {
-            border-width: 2px;
-            border-color: #373737;
-            box-shadow: 0 0px 32px rgba(0, 0, 0, 1);            }
-            .btn-custom {
-                background-color: #C47A62;
-                color: #ffffff;
+
+            input.valid[type=email]:not(.browser-default),
+            input.valid[type=email]:focus,
+            input.valid[type=text]:not(.browser-default),
+            input.valid[type=text]:focus {
+                background-color: #2b2b2b !important;
             }
-            */
-            .btn-custom:hover {
+
+            .btn:hover {
                 background-color: #633F3B;
             }
+
             .input-field input[type=email],
+            .input-field input[type=text],
             .input-field textarea {
                 color: #F7F7F7;
             }
-            .input-field input[type=email]:focus:not([readonly]),
-            .input-field textarea:focus:not([readonly]) {
-                border-bottom: 1px solid #C47A62;
-                box-shadow: 0 1px 0 0 #C47A62;
-            }
-            .input-field input[type=email]:enabled:not([readonly]),
-            .input-field textarea:enabled:not([readonly]) {
-                border-bottom: 1px solid #C47A62;
+
+            .material-icons {
+                color: #f7f7f7 !important;
             }
         }
     </style>
 </head>
+
 <body>
     <main>
         <div class="container">
-            <h1 class="page-title">Get in touch</h1>
+            <h1 class="page-title">Let's create something together</h1>
+            <div class="body">If you want to contact Harry about potential freelance work, employment opportunities, please feel free to get in touch.</div>
             <div class="row">
-                <form class="col s12" id="contactForm">
+                <form class="col s12" id="contactForm" method="POST">
                     <div class="row">
                         <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="name" type="text" class="validate" required>
+                            <label for="name">Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">email</i>
                             <input id="email" type="email" class="validate" required>
                             <label for="email">Email</label>
                             <span class="helper-text" data-error="Please enter a valid email address" data-success=""></span>
@@ -130,12 +150,13 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            <i class="material-icons prefix">message</i>
                             <textarea id="message" class="materialize-textarea" required></textarea>
                             <label for="message">Message</label>
                         </div>
                     </div>
-                    <button class="btn waves-effect waves-light btn-custom" type="submit" name="action">Send
-                        <i class="material-icons right"></i>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Send
+                        <i class="material-icons right">send</i>
                     </button>
                 </form>
             </div>
@@ -147,30 +168,39 @@
     <script>
         document.getElementById('contactForm').addEventListener('submit', function(event) {
             event.preventDefault();
+            const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            fetch('https://formsubmit.co/harryleesdesign.com', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    email: email,
-                    message: message
+            fetch('https://formsubmit.co/harryleesdesign@gmail.com', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: name,
+                        email: email,
+                        message: message
+                    })
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        M.toast({
+                            html: 'Message sent successfully!'
+                        });
+                    } else {
+                        M.toast({
+                            html: 'Failed to send message.'
+                        });
+                    }
                 })
-            }).then(response => response.json())
-              .then(data => {
-                  if (data.success) {
-                      M.toast({html: 'Message sent successfully!'});
-                  } else {
-                      M.toast({html: 'Failed to send message.'});
-                  }
-              })
-              .catch(error => {
-                  M.toast({html: 'Error: ' + error.message});
-              });
+                .catch(error => {
+                    M.toast({
+                        html: 'Error: ' + error.message
+                    });
+                });
         });
     </script>
 </body>
+
 </html>
