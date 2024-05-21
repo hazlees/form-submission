@@ -172,33 +172,39 @@
             const email = document.getElementById('email').value;
             const message = document.getElementById('message').value;
 
-            fetch('https://formsubmit.co/harryleesdesign@gmail.com', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        name: name,
-                        email: email,
-                        message: message
-                    })
-                }).then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        M.toast({
-                            html: 'Message sent successfully!'
-                        });
-                    } else {
-                        M.toast({
-                            html: 'Failed to send message.'
-                        });
-                    }
+            fetch('https://formsubmit.co/harrylees.design@gmail.com', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    message: message
                 })
-                .catch(error => {
-                    M.toast({
-                        html: 'Error: ' + error.message
-                    });
+            }).then(response => {
+                return response.text().then(text => {
+                    console.log('Raw response:', text); // Log the raw response for debugging
+                    if (!response.ok) {
+                        throw new Error(text);
+                    }
+                    // Check if response is HTML
+                    if (text.startsWith('<')) {
+                        throw new Error('Received HTML response: ' + text);
+                    }
+                    try {
+                        return JSON.parse(text); // Try to parse as JSON
+                    } catch (error) {
+                        throw new Error('Failed to parse response as JSON: ' + text);
+                    }
                 });
+            }).then(data => {
+                console.log('Parsed response:', data); // Log the parsed response for debugging
+                M.toast({ html: 'Message sent successfully!' });
+            }).catch(error => {
+                console.error('Error:', error); // Log the error for debugging
+                M.toast({ html: 'Error: ' + error.message });
+            });
         });
     </script>
 </body>
