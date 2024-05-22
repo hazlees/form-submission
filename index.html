@@ -83,7 +83,17 @@
         .btn:hover {
             background-color: #633F3B;
         }
-
+        /* Custom CSS for toast position */
+        .toast-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            position: fixed;
+            bottom: 24px; /* Adjust this value to your preference */
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
         @media (max-width: 800px) {
             .container {
                 padding: 16px;
